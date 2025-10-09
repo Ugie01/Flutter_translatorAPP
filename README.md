@@ -2,8 +2,8 @@
 
 GoSungTalk은 Flutter 기반의 다기능 실시간 번역 애플리케이션이다. 텍스트, 음성, 이미지를 통해 언어 장벽을 극복하는 것을 목표로 한다. Riverpod를 통한 상태 관리와 Microsoft Translator API를 활용하여 빠르고 정확한 번역 기능을 구현했다.
 
-> [!NOTE]
-> 여기에 애플리케이션의 핵심 기능을 보여주는 GIF나 스크린샷을 추가할 것. (예: 번역, 카메라, 채팅 화면)
+https://github.com/user-attachments/assets/ec853d19-8b2b-4c2d-a59e-7747006be549
+
 
 ---
 
@@ -15,24 +15,22 @@ GoSungTalk은 Flutter 기반의 다기능 실시간 번역 애플리케이션이
 - **음성 출력 (TTS)**: 번역된 결과를 음성으로 출력하는 **Text-To-Speech** 기능을 지원한다.
 - **음성 입력 (STT)**: 키보드 대신 음성으로 텍스트를 입력하는 **Speech-To-Text** 기능을 지원한다.
 
-> [!NOTE]
-> 여기에 텍스트 번역 기능에 대한 스크린샷이나 GIF를 추가할 것. (예: 텍스트 입력, 언어 변경, TTS/STT 사용 장면)
+<img width="270" height="600" alt="trans" src="https://github.com/user-attachments/assets/8f9b5384-9899-49bb-891c-15422525727f" />
 
 ### 2. 카메라 번역 (OCR)
 - **이미지 텍스트 인식**: `google_ml_kit_text_recognition` 라이브러리를 활용하여 카메라로 촬영한 이미지 속 텍스트를 인식한다.
 - **선택적 번역**: 인식된 텍스트 블록 중 사용자가 번역을 원하는 부분만 선택하여 번역한다.
 - **자동 언어 감지**: 선택된 텍스트의 언어를 자동으로 감지하여 출발 언어로 설정한다.
 
-> [!NOTE]
-> 여기에 카메라 번역 기능에 대한 스크린샷이나 GIF를 추가할 것. (예: 이미지 촬영, 텍스트 블록 선택, 번역 결과 확인)
+<img width="270" height="600" alt="select" src="https://github.com/user-attachments/assets/34c1e4a3-3565-4d95-9054-de15e5ff5508" />
 
 ### 3. 채팅 번역
 - **양방향 실시간 번역**: 두 사용자가 각자 설정한 언어로 메시지를 입력하면, 상대방의 언어로 자동 번역되어 메시지를 표시한다.
 - **낙관적 UI 업데이트 (Optimistic UI)**: 메시지 전송 시 로딩 상태를 UI에 먼저 반영하여 사용자 경험을 향상시켰다.
 - **자동 음성 출력**: 상대방의 번역된 메시지를 자동으로 읽어주는 **TTS** 기능이 포함되어 있다.
 
-> [!NOTE]
-> 여기에 채팅 번역 기능에 대한 스크린샷이나 GIF를 추가할 것. (예: 두 사용자가 다른 언어로 대화하는 장면)
+<img width="270" height="600" alt="chat" src="https://github.com/user-attachments/assets/488b9d40-b9d4-48c7-ba01-eb8e86f24ae4" />
+
 
 ### 4. 사용자 경험 (UX)
 - **테마 전환**: 사용자의 선호에 따라 **라이트 모드**와 **다크 모드**를 자유롭게 전환할 수 있다.
@@ -42,7 +40,11 @@ GoSungTalk은 Flutter 기반의 다기능 실시간 번역 애플리케이션이
 
 ## 🛠️ 기술 스택 및 아키텍처 (Tech Stack & Architecture)
 
-- **Core**: `Flutter 3.x`, `Dart 3.x`
+- **Development Environment**:
+    - `Flutter`: 3.35.5
+    - `Dart`: 3.9.2
+    - `DevTools`: 2.48.0
+    - `Android Studio`: Narwhal | 2025.1.3
 - **State Management**: `Riverpod`
     - `StateNotifierProvider`와 `StateProvider`를 사용하여 앱의 상태를 반응형으로 관리하고, UI와 비즈니스 로직을 분리했다.
 - **API**: `Microsoft Translator API`
@@ -64,22 +66,26 @@ GoSungTalk은 Flutter 기반의 다기능 실시간 번역 애플리케이션이
 ## 🚀 시작하기 (Getting Started)
 
 #### 1. 프로젝트 클론
+```bash
 git clone https://github.com/your-username/gosungtalk.git
 cd gosungtalk
-
+```
 #### 2. Flutter 패키지 설치
+```bash
 flutter pub get
-
+```
 #### 3. 환경 변수 설정 (.env)
 프로젝트 루트 디렉터리에 .env 파일을 생성하고 아래 내용을 채운다.
 
 # Microsoft Azure Cognitive Services - Translator
+```bash
 API_KEY="YOUR_MICROSOFT_TRANSLATOR_API_KEY"
 API_REGION="YOUR_API_REGION"
 API_ENDPOINT="https://api.cognitive.microsofttranslator.com"
+```
 
-> [!NOTE]
-> Microsoft Azure Portal에서 Translator 서비스 생성 후 발급받은 API 키와 지역(Region)을 입력해야 한다. 키 발급 방법에 대한 가이드나 링크를 추가하면 좋다.
+<img width="699" height="177" alt="image" src="https://github.com/user-attachments/assets/7602d613-081d-4f20-876e-a93253cb8989" />
+
 
 #### 4. 앱 실행
 flutter run
@@ -87,6 +93,7 @@ flutter run
 ---
 
 ## 📂 프로젝트 구조 (Project Structure)
+```
 lib
 ├── api/
 │   └── translation_api_service.dart  # 외부 API 통신 담당
@@ -111,3 +118,4 @@ lib
 ├── widgets/
 │   └── chat_bubble.dart              # 채팅 말풍선 위젯
 └── main.dart                         # 앱 시작점
+```
