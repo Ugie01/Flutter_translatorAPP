@@ -9,12 +9,17 @@ import 'package:translator_app/models/translation_state.dart';
 class TranslationApiService {
   // HTTP 통신을 위한 Dio 인스턴스를 생성
   final Dio _dio = Dio();
+
   // .env 파일에서 API 키를 가져와 저장
   static final String _apiKey = dotenv.env['API_KEY'] ?? 'API_KEY_NOT_FOUND';
+
   // .env 파일에서 API 지역을 가져와 저장
-  static final String _apiRegion = dotenv.env['API_REGION'] ?? 'API_REGION_NOT_FOUND';
+  static final String _apiRegion =
+      dotenv.env['API_REGION'] ?? 'API_REGION_NOT_FOUND';
+
   // .env 파일에서 API 엔드포인트를 가져와 저장
-  static final String _endpoint = dotenv.env['API_ENDPOINT'] ?? 'API_ENDPOINT_NOT_FOUND';
+  static final String _endpoint =
+      dotenv.env['API_ENDPOINT'] ?? 'API_ENDPOINT_NOT_FOUND';
 
   // 입력된 텍스트의 언어를 감지하는 메서드
   Future<String?> detectLanguage(String text) async {
@@ -69,12 +74,13 @@ class TranslationApiService {
 
   // 텍스트를 번역하는 메서드
   Future<String> translate(
-      String text,
-      String toLanguage,
-      String fromLanguage,
-      ) async {
+    String text,
+    String toLanguage,
+    String fromLanguage,
+  ) async {
     // API 키 또는 지역 정보가 없으면 안내 메시지를 반환
-    if (_apiKey == 'API_KEY_NOT_FOUND' || _apiRegion == 'API_REGION_NOT_FOUND') {
+    if (_apiKey == 'API_KEY_NOT_FOUND' ||
+        _apiRegion == 'API_REGION_NOT_FOUND') {
       return "API 키와 지역을 설정해주세요.";
     }
     // 번역할 텍스트가 없으면 빈 문자열을 반환
@@ -82,7 +88,9 @@ class TranslationApiService {
       return "";
     }
     // API 요청 본문을 생성
-    final List<Map<String, String>> requestBody = [{'Text': text}];
+    final List<Map<String, String>> requestBody = [
+      {'Text': text},
+    ];
 
     try {
       // 번역 API에 POST 요청을 보내는 기능
@@ -117,7 +125,8 @@ class TranslationApiService {
       // Dio 통신 오류 처리
       String errorMessage = '네트워크 오류가 발생했습니다.';
       if (e.response != null && e.response?.data['error'] != null) {
-        errorMessage = '오류: ${e.response?.statusCode} - ${e.response?.data['error']['message']}';
+        errorMessage =
+            '오류: ${e.response?.statusCode} - ${e.response?.data['error']['message']}';
       }
       throw Exception(errorMessage);
     } catch (e) {

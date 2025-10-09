@@ -15,6 +15,7 @@ import 'dart:async';
 class SelectionScreen extends ConsumerStatefulWidget {
   // 카메라 화면에서 전달받은 이미지 파일 경로를 저장
   final String imagePath;
+
   const SelectionScreen({super.key, required this.imagePath});
 
   @override
@@ -24,7 +25,8 @@ class SelectionScreen extends ConsumerStatefulWidget {
 // SelectionScreen의 상태를 관리하는 클래스
 class _SelectionScreenState extends ConsumerState<SelectionScreen> {
   // 외부 서비스 인스턴스를 생성
-  final TextRecognitionService _textRecognitionService = TextRecognitionService();
+  final TextRecognitionService _textRecognitionService =
+      TextRecognitionService();
   final TranslationApiService _apiService = TranslationApiService();
 
   // 상태 변수들을 선언
@@ -53,7 +55,9 @@ class _SelectionScreenState extends ConsumerState<SelectionScreen> {
     final imageData = await imageFile.readAsBytes(); // 파일을 바이트로 읽음
     final image = await decodeImageFromList(imageData); // 바이트를 이미지 객체로 디코딩
     // 텍스트 인식 서비스로 이미지에서 텍스트를 추출
-    final recognizedText = await _textRecognitionService.processImage(widget.imagePath);
+    final recognizedText = await _textRecognitionService.processImage(
+      widget.imagePath,
+    );
 
     // 상태를 업데이트하여 화면을 다시 그리게 함
     setState(() {
@@ -78,7 +82,9 @@ class _SelectionScreenState extends ConsumerState<SelectionScreen> {
   Future<void> _processSelection() async {
     // 선택된 텍스트가 없으면 사용자에게 알림
     if (_selectedBlocks.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("텍스트를 선택해주세요.")));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("텍스트를 선택해주세요.")));
       return;
     }
 
@@ -86,7 +92,9 @@ class _SelectionScreenState extends ConsumerState<SelectionScreen> {
     setState(() => _isProcessing = true);
 
     // 선택된 텍스트 블록의 글자들을 줄바꿈으로 합쳐 하나의 문자열로 만듦
-    final fullText = _selectedBlocks.map((b) => b.text).join('\n');
+    final fullText = _selectedBlocks
+        .map((b) => b.text.replaceAll('\n', ' '))
+        .join('\n');
 
     // 합쳐진 텍스트가 비어있지 않은 경우
     if (fullText.trim().isNotEmpty) {
@@ -94,7 +102,9 @@ class _SelectionScreenState extends ConsumerState<SelectionScreen> {
       final detectedLanguage = await _apiService.detectLanguage(fullText);
       // 언어가 감지되면 번역 화면의 출발 언어를 해당 언어로 설정
       if (detectedLanguage != null) {
-        ref.read(translationProvider.notifier).setSourceLanguage(detectedLanguage);
+        ref
+            .read(translationProvider.notifier)
+            .setSourceLanguage(detectedLanguage);
       }
       // 도착언어를 한국어로 설정
       ref.read(translationProvider.notifier).setTargetLanguage('ko');
@@ -120,7 +130,7 @@ class _SelectionScreenState extends ConsumerState<SelectionScreen> {
             icon: const Icon(Icons.check),
             onPressed: _selectedBlocks.isEmpty ? null : _processSelection,
             tooltip: '선택 완료',
-          )
+          ),
         ],
       ),
       // 처리 중이면 로딩 인디케이터, 아니면 이미지와 텍스트 블록을 표시

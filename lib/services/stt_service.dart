@@ -34,15 +34,15 @@ class SttService {
     // 음성 인식을 시작
     _speechToText
         .listen(
-      // 음성 인식 결과가 수신될 때마다 호출되는 콜백
-      onResult: (SpeechRecognitionResult result) {
-        // 최종 결과일 때만 onResult 콜백을 호출
-        if (result.finalResult) {
-          onResult(result.recognizedWords);
-        }
-      },
-      localeId: localeId, // 인식할 언어를 설정
-    )
+          // 음성 인식 결과가 수신될 때마다 호출되는 콜백
+          onResult: (SpeechRecognitionResult result) {
+            // 최종 결과일 때만 onResult 콜백을 호출
+            if (result.finalResult) {
+              onResult(result.recognizedWords);
+            }
+          },
+          localeId: localeId, // 인식할 언어를 설정
+        )
         .then((_) => onDone()); // listen이 완료되면 onDone 콜백을 호출
   }
 

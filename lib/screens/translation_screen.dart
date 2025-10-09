@@ -86,10 +86,10 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
 
   // 언어 선택 드롭다운과 교환 버튼 UI를 생성하는 메서드
   Widget _buildLanguageSelector(
-      BuildContext context,
-      TranslationState state,
-      TranslationNotifier notifier,
-      ) {
+    BuildContext context,
+    TranslationState state,
+    TranslationNotifier notifier,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -141,11 +141,11 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
 
   // 텍스트 입력 상자와 관련 버튼들을 생성하는 메서드
   Widget _buildTextBox(
-      TextEditingController controller,
-      String hint,
-      TranslationNotifier notifier,
-      TranslationState state,
-      ) {
+    TextEditingController controller,
+    String hint,
+    TranslationNotifier notifier,
+    TranslationState state,
+  ) {
     return Container(
       height: 200,
       padding: const EdgeInsets.all(12.0),
@@ -159,13 +159,17 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
           Expanded(
             child: TextField(
               controller: controller,
-              style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
               decoration: InputDecoration(
                 hintText: hint,
                 border: InputBorder.none, // 테두리 없음
               ),
-              maxLines: null, // 여러 줄 입력 가능
-              onChanged: notifier.setInputText, // 텍스트 변경 시 notifier에 알림
+              maxLines: null,
+              // 여러 줄 입력 가능
+              onChanged: notifier.setInputText,
+              // 텍스트 변경 시 notifier에 알림
               textInputAction: TextInputAction.done,
             ),
           ),
@@ -199,10 +203,10 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
 
   // 번역 결과 상자와 관련 버튼들을 생성하는 메서드
   Widget _buildResultBox(
-      TranslationState state,
-      TranslationNotifier notifier,
-      BuildContext context,
-      ) {
+    TranslationState state,
+    TranslationNotifier notifier,
+    BuildContext context,
+  ) {
     return Container(
       height: 200,
       width: double.infinity,
@@ -223,13 +227,14 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
                 // 로딩 중일 때는 로딩 인디케이터, 아닐 때는 번역된 텍스트를 표시
                 child: state.isLoading
                     ? const Center(child: CircularProgressIndicator())
-                    : SelectableText( // 사용자가 텍스트를 선택/복사할 수 있게 함
-                  state.translatedText,
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      fontSize: 16.0
-                  ),
-                ),
+                    : SelectableText(
+                        // 사용자가 텍스트를 선택/복사할 수 있게 함
+                        state.translatedText,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontSize: 16.0,
+                        ),
+                      ),
               ),
             ),
           ),

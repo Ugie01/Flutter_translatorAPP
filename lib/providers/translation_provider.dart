@@ -9,9 +9,9 @@ import 'package:translator_app/services/tts_service.dart';
 
 // TranslationNotifier와 TranslationState를 연결하는 StateNotifierProvider를 생성
 final translationProvider =
-StateNotifierProvider<TranslationNotifier, TranslationState>((ref) {
-  return TranslationNotifier();
-});
+    StateNotifierProvider<TranslationNotifier, TranslationState>((ref) {
+      return TranslationNotifier();
+    });
 
 // 번역 화면의 상태와 비즈니스 로직을 관리하는 클래스
 class TranslationNotifier extends StateNotifier<TranslationState> {

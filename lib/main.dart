@@ -14,9 +14,7 @@ Future<void> main() async {
   // .env 파일로부터 환경 변수를 로드하는 기능
   await dotenv.load(fileName: ".env");
   // 앱을 실행하는 함수, ProviderScope로 전체 앱을 감싸 Riverpod를 사용할 수 있게 함
-  runApp(
-    const ProviderScope(child: MyApp()),
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 // 앱의 최상위 위젯 클래스
@@ -32,8 +30,10 @@ class MyApp extends ConsumerWidget {
 
     // MaterialApp 위젯을 반환하여 앱의 기본 구조와 테마를 설정하는 기능
     return MaterialApp(
-      title: 'GoSungTalk', // 앱의 제목을 설정
-      debugShowCheckedModeBanner: false, // 디버그 배너를 숨김
+      title: 'GoSungTalk',
+      // 앱의 제목을 설정
+      debugShowCheckedModeBanner: false,
+      // 디버그 배너를 숨김
       // 밝은 테마에 대한 설정
       theme: ThemeData(
         brightness: Brightness.light,

@@ -1,20 +1,21 @@
 // lib/models/chat_state.dart
 
-enum MessageSender {
-  left,
-  right,
-}
+enum MessageSender { left, right }
 
 // 채팅 메시지 하나의 데이터를 표현하는 클래스
 class ChatMessage {
   // 메시지 고유 ID를 저장
   final String id;
+
   // 원본 텍스트를 저장
   final String originalText;
+
   // 번역된 텍스트를 저장
   final String translatedText;
+
   // 메시지를 보낸 사람을 저장 ('left' 또는 'right')
   final MessageSender sender;
+
   // 번역이 진행 중인지 여부를 저장
   final bool isLoading;
 
@@ -49,12 +50,16 @@ class ChatMessage {
 class ChatState {
   // 전체 채팅 메시지 목록을 저장
   final List<ChatMessage> messages;
+
   // 왼쪽 사용자의 언어 코드를 저장
   final String leftLanguage;
+
   // 오른쪽 사용자의 언어 코드를 저장
   final String rightLanguage;
+
   // 음성 인식이 진행 중인지 여부를 저장
   final bool isListening;
+
   // 오류 메시지를 저장
   final String? errorMessage;
 

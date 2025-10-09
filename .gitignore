@@ -46,3 +46,4 @@ app.*.map.json
 
 # 추가
 .env
+.metadata

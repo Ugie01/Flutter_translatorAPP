@@ -20,6 +20,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   // 왼쪽, 오른쪽 텍스트 입력 필드를 제어하는 컨트롤러
   final TextEditingController _leftController = TextEditingController();
   final TextEditingController _rightController = TextEditingController();
+
   // 채팅 목록의 스크롤을 제어하는 컨트롤러
   final ScrollController _scrollController = ScrollController();
 
@@ -87,10 +88,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
   // 언어 선택 드롭다운과 교환 버튼 UI를 생성하는 메서드
   Widget _buildLanguageSelectors(
-      BuildContext context,
-      ChatState state,
-      ChatNotifier notifier,
-      ) {
+    BuildContext context,
+    ChatState state,
+    ChatNotifier notifier,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -130,13 +131,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       ),
       child: DropdownButton<String>(
         value: value,
-        isExpanded: true, // 드롭다운을 확장하여 컨테이너 너비에 맞춤
+        isExpanded: true,
+        // 드롭다운을 확장하여 컨테이너 너비에 맞춤
         // 지원 언어 목록으로 드롭다운 아이템을 생성
         items: TranslationState.supportedLanguages.entries.map((entry) {
           return DropdownMenuItem<String>(
             value: entry.value,
             child: Center(
-              child: Text(entry.key, overflow: TextOverflow.ellipsis), // 텍스트가 길면 ...으로 표시
+              child: Text(
+                entry.key,
+                overflow: TextOverflow.ellipsis,
+              ), // 텍스트가 길면 ...으로 표시
             ),
           );
         }).toList(),
@@ -148,10 +153,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
   // 텍스트 입력 영역 전체(왼쪽, 오른쪽)를 생성하는 메서드
   Widget _buildTextInputArea(
-      BuildContext context,
-      ChatState state,
-      ChatNotifier notifier,
-      ) {
+    BuildContext context,
+    ChatState state,
+    ChatNotifier notifier,
+  ) {
     return Column(
       children: [
         // 왼쪽 사용자 입력 필드
@@ -187,86 +192,89 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     required CrossAxisAlignment alignment,
   }) {
     // 현재 입력 필드가 음성 입력을 듣고 있는지 여부를 확인
-    final isListeningForThisSender = state.isListening &&
+    final isListeningForThisSender =
+        state.isListening &&
         ((sender == MessageSender.left && _leftController.text.isEmpty) ||
             (sender == MessageSender.right && _rightController.text.isEmpty));
 
     // 보낸 사람(sender)에 따라 버튼과 입력 필드의 순서를 결정
     return Row(
       children: sender == MessageSender.left
-          ? [ // 왼쪽 사용자 UI 구성
-        Expanded(
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              hintText: hint,
-              border: const OutlineInputBorder(),
-            ),
-          ),
-        ),
-        // 음성 입력 버튼
-        IconButton(
-          icon: Icon(
-            isListeningForThisSender ? Icons.mic_off : Icons.mic,
-            color: isListeningForThisSender ? Colors.red : null,
-          ),
-          onPressed: () {
-            if (state.isListening) {
-              notifier.stopListening();
-            } else {
-              notifier.startListening(
-                sender,
-                    (text) => controller.text = text, // 음성 인식 결과를 텍스트 필드에 설정
-              );
-            }
-          },
-        ),
-        // 메시지 전송 버튼
-        IconButton(
-          icon: const Icon(Icons.send),
-          onPressed: () {
-            notifier.sendMessage(controller.text, sender);
-            controller.clear(); // 전송 후 텍스트 필드 비우기
-          },
-        ),
-      ]
-          : [ // 오른쪽 사용자 UI 구성
-        // 메시지 전송 버튼
-        IconButton(
-          icon: const Icon(Icons.send),
-          onPressed: () {
-            notifier.sendMessage(controller.text, sender);
-            controller.clear();
-          },
-        ),
-        // 음성 입력 버튼
-        IconButton(
-          icon: Icon(
-            isListeningForThisSender ? Icons.mic_off : Icons.mic,
-            color: isListeningForThisSender ? Colors.red : null,
-          ),
-          onPressed: () {
-            if (state.isListening) {
-              notifier.stopListening();
-            } else {
-              notifier.startListening(
-                sender,
-                    (text) => controller.text = text,
-              );
-            }
-          },
-        ),
-        Expanded(
-          child: TextField(
-            controller: controller,
-            textAlign: TextAlign.end, // 텍스트 오른쪽 정렬
-            decoration: InputDecoration(
-              hintText: hint,
-              border: const OutlineInputBorder(),
-            ),
-          ),
-        ),
-      ],
+          ? [
+              // 왼쪽 사용자 UI 구성
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    hintText: hint,
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              // 음성 입력 버튼
+              IconButton(
+                icon: Icon(
+                  isListeningForThisSender ? Icons.mic_off : Icons.mic,
+                  color: isListeningForThisSender ? Colors.red : null,
+                ),
+                onPressed: () {
+                  if (state.isListening) {
+                    notifier.stopListening();
+                  } else {
+                    notifier.startListening(
+                      sender,
+                      (text) => controller.text = text, // 음성 인식 결과를 텍스트 필드에 설정
+                    );
+                  }
+                },
+              ),
+              // 메시지 전송 버튼
+              IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: () {
+                  notifier.sendMessage(controller.text, sender);
+                  controller.clear(); // 전송 후 텍스트 필드 비우기
+                },
+              ),
+            ]
+          : [
+              // 오른쪽 사용자 UI 구성
+              // 메시지 전송 버튼
+              IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: () {
+                  notifier.sendMessage(controller.text, sender);
+                  controller.clear();
+                },
+              ),
+              // 음성 입력 버튼
+              IconButton(
+                icon: Icon(
+                  isListeningForThisSender ? Icons.mic_off : Icons.mic,
+                  color: isListeningForThisSender ? Colors.red : null,
+                ),
+                onPressed: () {
+                  if (state.isListening) {
+                    notifier.stopListening();
+                  } else {
+                    notifier.startListening(
+                      sender,
+                      (text) => controller.text = text,
+                    );
+                  }
+                },
+              ),
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  textAlign: TextAlign.end, // 텍스트 오른쪽 정렬
+                  decoration: InputDecoration(
+                    hintText: hint,
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+            ],
     );
   }
 }

@@ -16,8 +16,9 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     // 메시지 보낸 사람('left' 또는 'right')에 따라 정렬을 결정
     final alignment = message.sender == MessageSender.left
-        ? CrossAxisAlignment.start // 왼쪽 정렬
-        : CrossAxisAlignment.end;   // 오른쪽 정렬
+        ? CrossAxisAlignment
+              .start // 왼쪽 정렬
+        : CrossAxisAlignment.end; // 오른쪽 정렬
 
     // 메시지 보낸 사람에 따라 말풍선 색상을 결정
     final color = message.sender == MessageSender.left
@@ -34,35 +35,46 @@ class ChatBubble extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12.0),
             // 말풍선의 최대 너비를 화면 너비의 70%로 제한
-            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width * 0.7,
+            ),
             decoration: BoxDecoration(
-                color: color, // 결정된 색상 적용
-                borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: Colors.grey.shade300)
+              color: color, // 결정된 색상 적용
+              borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(color: Colors.grey.shade300),
             ),
             // 메시지가 로딩 중인지 여부에 따라 다른 위젯을 표시
             child: message.isLoading
-                ? const SizedBox( // 로딩 중일 때 로딩 인디케이터 표시
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(strokeWidth: 2),
-            )
-                : Column( // 로딩이 아닐 때 텍스트 표시
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // 원본 텍스트를 표시
-                Text(
-                  message.originalText,
-                  style: const TextStyle(color: Colors.black54, fontSize: 13),
-                ),
-                const SizedBox(height: 4),
-                // 번역된 텍스트를 표시
-                Text(
-                  message.translatedText,
-                  style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+                ? const SizedBox(
+                    // 로딩 중일 때 로딩 인디케이터 표시
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : Column(
+                    // 로딩이 아닐 때 텍스트 표시
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 원본 텍스트를 표시
+                      Text(
+                        message.originalText,
+                        style: const TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      // 번역된 텍스트를 표시
+                      Text(
+                        message.translatedText,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
           ),
         ],
       ),

@@ -4,16 +4,22 @@
 class TranslationState {
   // 사용자가 입력한 텍스트를 저장
   final String inputText;
+
   // 번역된 결과 텍스트를 저장
   final String translatedText;
+
   // 출발 언어 코드를 저장 (예: 'ko')
   final String sourceLanguage;
+
   // 도착 언어 코드를 저장 (예: 'en')
   final String targetLanguage;
+
   // 번역 API 호출 중인지 여부를 저장
   final bool isLoading;
+
   // 음성 인식 중인지 여부를 저장
   final bool isListening;
+
   // 오류 발생 시 표시할 메시지를 저장
   final String? errorMessage;
 

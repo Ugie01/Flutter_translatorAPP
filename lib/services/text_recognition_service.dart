@@ -6,8 +6,9 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 // 이미지에서 텍스트를 인식하는 기능을 담당하는 서비스 클래스
 class TextRecognitionService {
   // 한국어 스크립트를 인식하도록 설정된 TextRecognizer 인스턴스를 생성
-  final TextRecognizer _textRecognizer =
-  TextRecognizer(script: TextRecognitionScript.korean);
+  final TextRecognizer _textRecognizer = TextRecognizer(
+    script: TextRecognitionScript.korean,
+  );
 
   // 주어진 이미지 파일 경로에서 텍스트를 인식하는 메서드
   Future<RecognizedText> processImage(String path) async {

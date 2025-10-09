@@ -35,7 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
-  # ============== 추가한 내용 ==============
+  # ============== 내가 추가한 내용 ==============
   # [네트워킹] HTTP 통신을 위한 라이브러리. API 요청 시 사용
   dio: ^5.9.0
 

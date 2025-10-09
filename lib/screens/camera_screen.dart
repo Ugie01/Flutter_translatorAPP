@@ -22,8 +22,10 @@ class CameraScreen extends ConsumerStatefulWidget {
 class _CameraScreenState extends ConsumerState<CameraScreen> {
   // 카메라를 제어하는 컨트롤러를 저장
   CameraController? _controller;
+
   // 컨트롤러 초기화 과정을 추적하는 Future를 저장
   Future<void>? _initializeControllerFuture;
+
   // 이미지 처리 중인지 여부를 저장
   bool _isProcessing = false;
 
@@ -39,7 +41,11 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
     // 컨트롤러가 없고 사용 가능한 카메라가 있을 때 초기화 진행
     if (_controller == null && cameras.isNotEmpty) {
       // 첫 번째 카메라를 고화질로, 오디오는 비활성화하여 컨트롤러 생성
-      _controller = CameraController(cameras[0], ResolutionPreset.high, enableAudio: false);
+      _controller = CameraController(
+        cameras[0],
+        ResolutionPreset.high,
+        enableAudio: false,
+      );
       _initializeControllerFuture = _controller!.initialize();
     }
   }
@@ -47,7 +53,10 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
   // 이미지를 촬영하고 SelectionScreen으로 이동하는 기능
   Future<void> _scanImage() async {
     // 컨트롤러가 준비되지 않았거나 처리 중이면 실행하지 않음
-    if (_controller == null || !_controller!.value.isInitialized || _isProcessing) return;
+    if (_controller == null ||
+        !_controller!.value.isInitialized ||
+        _isProcessing)
+      return;
     // 처리 중 상태로 변경하여 중복 실행을 방지
     setState(() => _isProcessing = true);
 
@@ -66,7 +75,9 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
     } catch (e) {
       // 오류 발생 시 SnackBar로 사용자에게 알림
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('오류: $e')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('오류: $e')));
       }
     } finally {
       // 처리가 끝나면 처리 중 상태를 해제
@@ -112,7 +123,9 @@ class _CameraScreenState extends ConsumerState<CameraScreen> {
                           onPressed: _scanImage,
                           // 처리 중이면 로딩 인디케이터, 아니면 카메라 아이콘 표시
                           child: _isProcessing
-                              ? const CircularProgressIndicator(color: Colors.white)
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
                               : const Icon(Icons.camera_alt),
                         ),
                       ),

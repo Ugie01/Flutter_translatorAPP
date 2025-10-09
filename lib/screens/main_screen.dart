@@ -16,8 +16,8 @@ class MainScreen extends ConsumerWidget {
   // 각 탭에 해당하는 화면 위젯 목록을 저장
   static const List<Widget> _widgetOptions = <Widget>[
     TranslationScreen(), // 0번 탭: 번역 화면
-    CameraScreen(),      // 1번 탭: 카메라 화면
-    ChatScreen(),        // 2번 탭: 채팅 화면
+    CameraScreen(), // 1번 탭: 카메라 화면
+    ChatScreen(), // 2번 탭: 채팅 화면
   ];
 
   // 위젯의 UI를 빌드하는 메서드
@@ -38,9 +38,12 @@ class MainScreen extends ConsumerWidget {
         actions: [
           // 테마 변경 버튼
           IconButton(
-            icon: Icon(currentTheme == ThemeMode.dark
-                ? Icons.light_mode_outlined // 다크 모드일 때 밝은 모드 아이콘 표시
-                : Icons.dark_mode_outlined), // 밝은 모드일 때 어두운 모드 아이콘 표시
+            icon: Icon(
+              currentTheme == ThemeMode.dark
+                  ? Icons
+                        .light_mode_outlined // 다크 모드일 때 밝은 모드 아이콘 표시
+                  : Icons.dark_mode_outlined,
+            ), // 밝은 모드일 때 어두운 모드 아이콘 표시
             onPressed: () {
               // 버튼을 누르면 테마를 토글하는 기능을 호출
               ref.read(themeProvider.notifier).toggleTheme();
@@ -60,7 +63,6 @@ class MainScreen extends ConsumerWidget {
         ],
         currentIndex: selectedIndex, // 현재 선택된 탭을 활성화
 
-        
         onTap: (index) {
           // 현재 탭이 번역 탭이고, 이동하려는 탭이 다른 탭일 경우
           if (selectedIndex == 0 && index != 0) {
